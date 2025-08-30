@@ -1,0 +1,176 @@
+@import url('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(var(--background));
+  --foreground: hsl(var(--foreground));
+  --card: hsl(var(--card));
+  --card-foreground: hsl(var(--card-foreground));
+  --popover: hsl(var(--popover));
+  --popover-foreground: hsl(var(--popover-foreground));
+  --primary: hsl(var(--primary));
+  --primary-foreground: hsl(var(--primary-foreground));
+  --secondary: hsl(var(--secondary));
+  --secondary-foreground: hsl(var(--secondary-foreground));
+  --muted: hsl(var(--muted));
+  --muted-foreground: hsl(var(--muted-foreground));
+  --accent: hsl(var(--accent));
+  --accent-foreground: hsl(var(--accent-foreground));
+  --destructive: hsl(var(--destructive));
+  --destructive-foreground: hsl(var(--destructive-foreground));
+  --border: hsl(var(--border));
+  --input: hsl(var(--input));
+  --ring: hsl(var(--ring));
+
+  /* Extended tokens from your base design */
+  --chart-1: hsl(203, 89%, 53%);
+  --chart-2: hsl(160, 100%, 36%);
+  --chart-3: hsl(42, 93%, 56%);
+  --chart-4: hsl(147, 79%, 42%);
+  --chart-5: hsl(342, 75%, 51%);
+
+  --sidebar: hsl(var(--sidebar-background));
+  --sidebar-foreground: hsl(var(--sidebar-foreground));
+  --sidebar-primary: hsl(var(--sidebar-primary));
+  --sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --sidebar-accent: hsl(var(--sidebar-accent));
+  --sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --sidebar-border: hsl(var(--sidebar-border));
+  --sidebar-ring: hsl(var(--sidebar-ring));
+
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-serif: Georgia, serif;
+  --font-mono: "Fira Code", monospace;
+  --radius: 0.5rem;
+
+  /* Shadows and spacing */
+  --shadow-2xs: 0px 2px 0px 0px hsl(var(--ring) / 0%);
+  --shadow-xs: 0px 2px 0px 0px hsl(var(--ring) / 0%);
+  --shadow-sm: 0px 2px 0px 0px hsl(var(--ring) / 0%), 0px 1px 2px -1px hsl(var(--ring) / 0%);
+  --shadow: 0px 2px 0px 0px hsl(var(--ring) / 0%), 0px 1px 2px -1px hsl(var(--ring) / 0%);
+  --shadow-md: 0px 2px 0px 0px hsl(var(--ring) / 0%), 0px 2px 4px -1px hsl(var(--ring) / 0%);
+  --shadow-lg: 0px 2px 0px 0px hsl(var(--ring) / 0%), 0px 4px 6px -1px hsl(var(--ring) / 0%);
+  --shadow-xl: 0px 2px 0px 0px hsl(var(--ring) / 0%), 0px 8px 10px -1px hsl(var(--ring) / 0%);
+  --shadow-2xl: 0px 2px 0px 0px hsl(var(--ring) / 0%);
+  --tracking-normal: 0em;
+  --spacing: 0.25rem;
+}
+
+.dark {
+  --background: hsl(var(--background));
+  --foreground: hsl(var(--foreground));
+  --card: hsl(var(--card));
+  --card-foreground: hsl(var(--card-foreground));
+  --popover: hsl(var(--popover));
+  --popover-foreground: hsl(var(--popover-foreground));
+  --primary: hsl(var(--primary));
+  --primary-foreground: hsl(var(--primary-foreground));
+  --secondary: hsl(var(--secondary));
+  --secondary-foreground: hsl(var(--secondary-foreground));
+  --muted: hsl(var(--muted));
+  --muted-foreground: hsl(var(--muted-foreground));
+  --accent: hsl(var(--accent));
+  --accent-foreground: hsl(var(--accent-foreground));
+  --destructive: hsl(var(--destructive));
+  --destructive-foreground: hsl(var(--destructive-foreground));
+  --border: hsl(var(--border));
+  --input: hsl(var(--input));
+  --ring: hsl(var(--ring));
+  --sidebar: hsl(var(--sidebar-background));
+  --sidebar-foreground: hsl(var(--sidebar-foreground));
+  --sidebar-primary: hsl(var(--sidebar-primary));
+  --sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --sidebar-accent: hsl(var(--sidebar-accent));
+  --sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --sidebar-border: hsl(var(--sidebar-border));
+  --sidebar-ring: hsl(var(--sidebar-ring));
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+}
+
+/* Leaflet Map Styling */
+.leaflet-container {
+  background: hsl(var(--background)) !important;
+  font-family: var(--font-sans);
+}
+
+.leaflet-popup-content-wrapper {
+  background: hsl(var(--card));
+  color: hsl(var(--card-foreground));
+  border-radius: var(--radius);
+  border: 1px solid hsl(var(--border));
+}
+
+.leaflet-popup-tip {
+  background: hsl(var(--card));
+}
+
+.infrastructure-marker {
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.infrastructure-marker:hover {
+  transform: scale(1.2);
+  z-index: 1000;
+}
+
+.hydrogen-plant { background: hsl(159, 64%, 45%); } /* matches green accent */
+.storage-facility { background: hsl(217, 91%, 60%); } /* matches blue */
+.pipeline { background: hsl(38, 92%, 55%); } /* matches amber */
+.distribution-hub { background: hsl(262, 83%, 60%); } /* matches violet */
+.renewable-source { background: hsl(172, 66%, 45%); } /* teal accent */
+.demand-center { background: hsl(0, 84%, 60%); } /* matches destructive */
+
+.chart-container {
+  background: hsl(var(--card));
+  border-radius: var(--radius);
+}
+
+.map-overlay {
+  position: absolute;
+  background: rgba(15, 23, 42, 0.9);
+  backdrop-filter: blur(8px);
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+}
+
+/* Map tiles styling for dark theme */
+.leaflet-tile {
+  filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7);
+}
+
+/* Control styling */
+.leaflet-control-zoom a {
+  background-color: hsl(var(--card));
+  border-color: hsl(var(--border));
+  color: hsl(var(--card-foreground));
+}
+
+.leaflet-control-zoom a:hover {
+  background-color: hsl(var(--muted));
+}
+
+/* Attribution styling */
+.leaflet-control-attribution {
+  background-color: hsl(var(--card));
+  color: hsl(var(--muted-foreground));
+}
+
+.leaflet-control-attribution a {
+  color: hsl(var(--primary));
+}
